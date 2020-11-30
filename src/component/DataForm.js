@@ -1,6 +1,7 @@
 import { Button, makeStyles, TextField } from "@material-ui/core";
 import axios from "axios";
-import React, { useState,useEffect } from "react";
+import React, { useState, useEffect } from "react";
+import Data from "./Data";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -13,72 +14,70 @@ const useStyles = makeStyles((theme) => ({
 
 function DataForm(props) {
   const classes = useStyles();
-//   const initialValues =(props.click?({
-//     firstName:props.select.firstName,
-//     lastName:props.select.lastName,
-//     email:props.select.email
-// }):({
-//   firstName:"",
-//   lastName:"",
-//   email:""
-// }))
-const clicked=  props.click;
-const selected= props.select;
-console.log(selected);
-console.log(clicked);
-  const [values,setValues]=useState({
-    firstName:"",
-    lastName:"",
-    email:""
-  })
-const handleInputChange=(event)=>{
+  const clicked = props.click;
+  const selected = props.update;
+  // console.log(selected);
+  // console.log(clicked);
+  const [values, setValues] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+  });
+  const handleInputChange = (event) => {
     setValues({
-        ...values,[event.target.name]:event.target.value
-    })
-}
-const firstName=values.firstName;
-const lastName= values.lastName;
-const email=values.email;
+      ...values,
+      [event.target.name]: event.target.value,
+    });
+  };
+  const firstName = values.firstName;
+  const lastName = values.lastName;
+  const email = values.email;
+  // const [sendData,setSendData]= useState(false);
+  const handleSubmit = () => {
+    if (props.click) {
+      axios
+        .put(`http://localhost:3000/data/${selected.id}`, {
+          firstName: firstName,
+          lastName: lastName,
+          email: email,
+        })
+        .then((response) => {
+          console.log(response.data);
+          props.parentCallback();
+          
+        });
+    } else {
+      console.log(values);
+      axios
+        .post("http://localhost:3000/data", {
+          firstName: firstName,
+          lastName: lastName,
+          email: email,
+        })
+        .then((response) => {
+          console.log(response.data);
+          // props.data();
+          props.parentCallback();
+        });
+    }
+  };
 
-const handleSubmit=()=>{
-  if(props.click){
-     axios.put(`http://localhost:3000/data/${selected.id}`,{
-      firstName:firstName,
-      lastName:lastName,
-      email:email
-  }).then((response)=>{
-    console.log(response.data);
-    props.data();
-  })
-  }else{
-    console.log(values);
-    axios.post("http://localhost:3000/data",{
-        firstName:firstName,
-        lastName:lastName,
-        email:email
-    }).
-    then((response)=>{
-        console.log(response.data);
-        props.data();
+  useEffect(() => {
+    setValues(
+      props.click
+        ? {
+            firstName: props.update.firstName,
+            lastName: props.update.lastName,
+            email: props.update.email,
+          }
+        : {
+            firstName: "",
+            lastName: "",
+            email: "",
+          }
+    );
+  },[clicked,props.update.id]);
 
-    })
-  }
-    
-  
-   
-}
-useEffect(() => {
-setValues(
-  (props.click?({
-        firstName:props.select.firstName,
-        lastName:props.select.lastName,
-        email:props.select.email
-  }):{
-      firstName:"",
-      lastName:"",
-      email:""
-    })
-)}, [clicked])
 
   return (
     <div>
@@ -109,21 +108,11 @@ setValues(
             onChange={handleInputChange}
           ></TextField>
         </div>
-        <Button
-          color="primary"
-          variant="contained"
-          onClick={handleSubmit}
-        >
+        <Button color="primary" variant="contained" onClick={handleSubmit}>
           Submit
         </Button>
-        {/* <Button
-          color="primary"
-          variant="contained"
-          onClick={props.getData}
-        >
-          ShowList
-        </Button> */}
       </form>
+      
     </div>
   );
 }
