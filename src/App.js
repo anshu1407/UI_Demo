@@ -3,6 +3,8 @@ import "./App.css";
 import DataForm from "./component/DataForm";
 import React, { useState } from "react";
 import Data from "./component/Data";
+import Parent from "./component/Parent";
+import Home from "./component/Home";
 
 const useStyles = makeStyles((theme) => ({
   paperContent: {
@@ -12,11 +14,17 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function App() {
-  const classes = useStyles();
+  // const[update, setUpdate]=useState('');
+  // const [click, setClick] = useState(false);
+  // const [get, setGet]=useState('');
+  // const classes = useStyles();
+
   return (
     <div>
-      {/* <DataForm></DataForm> */}
+      {/* <Home></Home> */}
+      {/* <DataForm ></DataForm> */}
       <Data></Data>
+      {/* <Parent></Parent> */}
     </div>
   );
 }

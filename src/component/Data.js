@@ -4,6 +4,7 @@ import { DataGrid } from "@material-ui/data-grid";
 import { Button, TextField } from "@material-ui/core";
 import DataForm from "./DataForm";
 
+// {setUpdate , setClick, setGet}
 function Data(props) {
   const [rows, setRows] = useState([]);
   const columns = [
@@ -51,6 +52,9 @@ function Data(props) {
     axios.delete(`http://localhost:3000/data/${id}`).then((response) => {
       
       getData();
+      // const data= getData();
+    //  setGet(data)
+    // setGet(getData())
       console.log(response);
     });
   };
@@ -70,20 +74,34 @@ function Data(props) {
   useEffect(() => {
     getData();
   }, []);
-  const [select, setSelect] = useState("");
-  const [click, setClick] = useState(false);
+
+  // useEffect(() => {
+  //   props.sendData?getData():getData();
+  // }, []);
+  
+  const[update,setUpdate]=useState('');
+  const[click,setClick]= useState(false);
   const handleClick = (data) => {
-    setSelect(data);
-    //  console.log(select);
+    
+    setUpdate(data);
+    setClick(true);
+    console.log(data)
   };
+  // const [dataReceived,setDataReceived]= useState(false);
+  const handleCallBack=()=>{
+       getData();
+  }
   return (
     <div style={{ height: 400, width: "100%" }}>
-      <DataForm data={getData} select={select} click={click}></DataForm>
+      <DataForm parentCallback={handleCallBack}
+      // data={getData} 
+      click={click} update={update}
+      ></DataForm>
       <DataGrid
         rows={rows}
         onRowClick={(rowParams) => {
           handleClick(rowParams.data);
-          setClick(true);
+          
         }}
         columns={columns}
       />
