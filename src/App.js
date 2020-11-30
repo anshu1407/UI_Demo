@@ -1,10 +1,11 @@
-import { makeStyles, Paper } from "@material-ui/core";
+import { createMuiTheme, makeStyles, Paper, ThemeProvider } from "@material-ui/core";
 import "./App.css";
 import DataForm from "./component/DataForm";
 import React, { useState } from "react";
 import Data from "./component/Data";
 import Parent from "./component/Parent";
 import Home from "./component/Home";
+import { dark } from "@material-ui/core/styles/createPalette";
 
 const useStyles = makeStyles((theme) => ({
   paperContent: {
@@ -12,6 +13,13 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(3),
   },
 }));
+const theme = createMuiTheme(
+  {
+    palette:{
+      type:dark
+    }
+  }
+)
 
 function App() {
   // const[update, setUpdate]=useState('');
@@ -21,10 +29,13 @@ function App() {
 
   return (
     <div>
-      {/* <Home></Home> */}
+     <ThemeProvider theme={theme}>
+     <Paper>
+     {/* <Home></Home> */}
       {/* <DataForm ></DataForm> */}
       <Data></Data>
-      {/* <Parent></Parent> */}
+     </Paper>
+     </ThemeProvider>
     </div>
   );
 }

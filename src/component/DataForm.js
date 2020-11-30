@@ -43,7 +43,7 @@ function DataForm(props) {
         })
         .then((response) => {
           console.log(response.data);
-          props.parentCallback();
+          props.updateCallBack();
           
         });
     } else {
@@ -58,6 +58,11 @@ function DataForm(props) {
           console.log(response.data);
           // props.data();
           props.parentCallback();
+          setValues({
+            firstName: "",
+            lastName: "",
+            email: "",
+          })
         });
     }
   };

@@ -15,7 +15,7 @@ function Home() {
         <Grid item xs={12} container direction="row" justify="space-evenly">
           <Product></Product>
           <Product></Product>
-          <Product></Product>
+          {/* <Product></Product> */}
         </Grid>
         <Grid item xs={12} container direction="row" justify="space-evenly">
           <Product></Product>

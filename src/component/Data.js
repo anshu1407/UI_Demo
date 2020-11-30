@@ -7,9 +7,22 @@ import DataForm from "./DataForm";
 // {setUpdate , setClick, setGet}
 function Data(props) {
   const [rows, setRows] = useState([]);
+  const[update,setUpdate]=useState('');
+  const[click,setClick]= useState(false);
   const columns = [
     { field: "id", headerName: "ID", width: 70 },
-    { field: "email", headerName: "Email", width: 200 },
+    { field: "email", headerName: "Email", width: 200,
+    renderCell: (params) => (
+        
+      <strong>
+        {/* {console.log(params)};
+        {(params.value)}
+         onClick={showData} */}
+         <Button onClick={()=>{showData(params.data)}}>
+          {params.value} 
+         </Button>
+      </strong>
+    )},
     { field: "firstName", headerName: "First name", width: 130 },
     { field: "lastName", headerName: "Last name", width: 130 },
     {
@@ -45,7 +58,11 @@ function Data(props) {
       ),
     },
   ];
-
+const showData=(data)=>{
+   setUpdate(data);
+    setClick(true);
+  console.log(data)}
+  
   const handleDelete = (id) => {
     console.log("deleted");
 
@@ -79,8 +96,7 @@ function Data(props) {
   //   props.sendData?getData():getData();
   // }, []);
   
-  const[update,setUpdate]=useState('');
-  const[click,setClick]= useState(false);
+  
   const handleClick = (data) => {
     
     setUpdate(data);
@@ -91,18 +107,23 @@ function Data(props) {
   const handleCallBack=()=>{
        getData();
   }
+  const updateCallBack=()=>{
+    getData();
+    // setUpdate(null);
+    setClick(false);
+  }
   return (
     <div style={{ height: 400, width: "100%" }}>
-      <DataForm parentCallback={handleCallBack}
+      <DataForm parentCallback={handleCallBack} updateCallBack={updateCallBack}
       // data={getData} 
       click={click} update={update}
       ></DataForm>
       <DataGrid
         rows={rows}
-        onRowClick={(rowParams) => {
-          handleClick(rowParams.data);
+        // onRowClick={(rowParams) => {
+        //   handleClick(rowParams.data);
           
-        }}
+        // }}
         columns={columns}
       />
     </div>
