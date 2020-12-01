@@ -63,32 +63,58 @@ const showData=(data)=>{
     setClick(true);
   console.log(data)}
   
-  const handleDelete = (id) => {
-    console.log("deleted");
+  // const handleDelete = (id) => {
+  //   console.log("deleted");
 
-    axios.delete(`http://localhost:3000/data/${id}`).then((response) => {
+  //   axios.delete(`http://localhost:3000/data/${id}`).then((response) => {
       
-      getData();
-      // const data= getData();
-    //  setGet(data)
-    // setGet(getData())
-      console.log(response);
-    });
-  };
-  const getData = () => {
-    axios
-      .get("http://localhost:3000/data")
-      .then((response) => {
-        const res = response.data;
-        setRows(res);
-        console.log(res);
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-  };
+  //     getData();
+  //     // const data= getData();
+  //   //  setGet(data)
+  //   // setGet(getData())
+  //     console.log(response);
+  //   });
+  // };
+  async function handleDelete(id){
+    const response= await axios.delete(`http://localhost:3000/data/${id}`);
+    console.log(response);
+    getData();
+  }
+  //=========================================================
+  // const getData = () => {
+  //   axios
+  //     .get("http://localhost:3000/data")
+  //     .then((response) => {
+  //       const res = response.data;
+  //       setRows(res);
+  //       console.log(res);
+  //     })
+  //     .catch(function (error) {
+  //       console.log(error);
+  //     });
+  // };
 
+  async function getData(){
+    try{
+  const request=await axios.get("http://localhost:3000/data", {
+    headers: {
+      'Test-Header': 'test-value'
+    }
+  })
+  if (request.status !== 200) {
+    throw Error(request.statusText);
+  }
+  
+  console.log(request);
+  setRows(request.data)
+  return request;
+  
+}catch(error){
+    console.log(error);
+  }
+};
   useEffect(() => {
+   
     getData();
   }, []);
 

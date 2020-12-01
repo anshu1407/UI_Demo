@@ -33,29 +33,62 @@ function DataForm(props) {
   const lastName = values.lastName;
   const email = values.email;
   // const [sendData,setSendData]= useState(false);
-  const handleSubmit = () => {
+  //===========
+  // const handleSubmit = () => {
+  //   if (props.click) {
+  //     axios
+  //       .put(`http://localhost:3000/data/${selected.id}`, {
+  //         firstName: firstName,
+  //         lastName: lastName,
+  //         email: email,
+  //       })
+  //       .then((response) => {
+  //         console.log(response.data);
+  //         props.updateCallBack();
+          
+  //       });
+  //   } else {
+  //     console.log(values);
+  //     axios
+  //       .post("http://localhost:3000/data", {
+  //         firstName: firstName,
+  //         lastName: lastName,
+  //         email: email,
+  //       })
+  //       .then((response) => {
+  //         console.log(response.data);
+  //         // props.data();
+  //         props.parentCallback();
+  //         setValues({
+  //           firstName: "",
+  //           lastName: "",
+  //           email: "",
+  //         })
+  //       });
+  //   }
+  // };
+//====================
+  const handleSubmit = async() => {
     if (props.click) {
-      axios
+      const request= await axios
         .put(`http://localhost:3000/data/${selected.id}`, {
           firstName: firstName,
           lastName: lastName,
           email: email,
         })
-        .then((response) => {
-          console.log(response.data);
-          props.updateCallBack();
+        console.log(request);
+        props.updateCallBack();
           
-        });
     } else {
       console.log(values);
-      axios
+      const request= await axios
         .post("http://localhost:3000/data", {
           firstName: firstName,
           lastName: lastName,
           email: email,
         })
-        .then((response) => {
-          console.log(response.data);
+        
+          console.log(request.data);
           // props.data();
           props.parentCallback();
           setValues({
@@ -63,7 +96,6 @@ function DataForm(props) {
             lastName: "",
             email: "",
           })
-        });
     }
   };
 

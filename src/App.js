@@ -13,13 +13,13 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(3),
   },
 }));
-const theme = createMuiTheme(
-  {
-    palette:{
-      type:dark
-    }
-  }
-)
+// const theme = createMuiTheme(
+//   {
+//     palette:{
+//       type:dark
+//     }
+//   }
+// )
 
 function App() {
   // const[update, setUpdate]=useState('');
@@ -29,13 +29,11 @@ function App() {
 
   return (
     <div>
-     <ThemeProvider theme={theme}>
-     <Paper>
+     
+     
      {/* <Home></Home> */}
       {/* <DataForm ></DataForm> */}
       <Data></Data>
-     </Paper>
-     </ThemeProvider>
     </div>
   );
 }

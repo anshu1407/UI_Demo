@@ -1,12 +1,6 @@
 {
   "data": [
     {
-      "firstName": "akanksha",
-      "lastName": "ss111dvvfd",
-      "email": "sssssssssssss11111",
-      "id": 9
-    },
-    {
       "id": 10,
       "email": "byron.fields@reqres.in",
       "firstName": "Byron",
@@ -65,6 +59,12 @@
       "lastName": "Matta",
       "email": "annu27@gmail.com",
       "id": 59
+    },
+    {
+      "firstName": "danish29",
+      "lastName": "Tejwani",
+      "email": "danish29@gmail.com",
+      "id": 60
     }
   ]
 }
